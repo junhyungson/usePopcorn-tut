@@ -1,7 +1,7 @@
-import Logo from "../Logo";
-import type { MovieData } from "../types/movie";
-import Search from "./Navbar/Search";
-import SearchResults from "./Navbar/SearchResults";
+import type { MovieData } from "../../../types/movie";
+import { Logo } from "../../common";
+import Search from "./Search";
+import SearchResults from "./SearchResults";
 
 interface NavBarProps {
   movies: MovieData[];

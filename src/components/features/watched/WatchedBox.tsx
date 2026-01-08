@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { average } from "../../helper";
-import type { WatchedMovieData } from "../../types/movie";
+import { average } from "../../../helper";
+import type { WatchedMovieData } from "../../../types/movie";
 
 interface WatchedBoxProps {
   watched: WatchedMovieData[];

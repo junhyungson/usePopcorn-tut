@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
-import Main from "./components/Main";
-import NavBar from "./components/NavBar";
+import { NavBar } from "./components/features/navigation";
+import { Main } from "./components/layout";
 import { tempMovieData } from "./tempMoviedata";
 import type { MovieData } from "./types/movie";
 

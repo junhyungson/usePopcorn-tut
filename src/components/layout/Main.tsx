@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { tempWatchedData } from "../tempMoviedata";
-import type { MovieData, WatchedMovieData } from "../types/movie";
-import ListBox from "./ui/Box";
-import WatchedBox from "./ui/WatchedBox";
+import { tempWatchedData } from "../../tempMoviedata";
+import type { MovieData, WatchedMovieData } from "../../types/movie";
+import { WatchedBox } from "../features/watched";
+import { Container } from "../ui";
 
 interface MainProps {
   movies: MovieData[];
@@ -13,7 +13,7 @@ const Main = ({ movies }: MainProps) => {
 
   return (
     <main className="main">
-      <ListBox movies={movies} />
+      <Container movies={movies} />
       <WatchedBox watched={watched} />
     </main>
   );
