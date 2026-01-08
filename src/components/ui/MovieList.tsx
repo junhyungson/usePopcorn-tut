@@ -1,22 +1,14 @@
-import type { Movie } from "../../types/movie";
+import type { MovieData } from "../../types/movie";
+import MovieCard from "./MovieCard";
 
 interface MovieListProps {
-  movies: Movie[];
+  movies: MovieData[];
 }
 const MovieList = ({ movies }: MovieListProps) => {
   return (
     <ul className="list">
-      {movies?.map((movie: Movie) => (
-        <li key={movie.imdbID}>
-          <img src={movie.Poster} alt={`${movie.Title} poster`} />
-          <h3>{movie.Title}</h3>
-          <div>
-            <p>
-              <span>🗓</span>
-              <span>{movie.Year}</span>
-            </p>
-          </div>
-        </li>
+      {movies?.map((movie: MovieData) => (
+        <MovieCard key={movie.imdbID} movie={movie} />
       ))}
     </ul>
   );

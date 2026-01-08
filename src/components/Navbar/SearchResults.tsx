@@ -1,7 +1,7 @@
-import type { Movie } from "../../types/movie";
+import type { MovieData } from "../../types/movie";
 
 interface SearchResultsProps {
-  movies: Movie[];
+  movies: MovieData[];
 }
 
 const SearchResults = ({ movies }: SearchResultsProps) => {

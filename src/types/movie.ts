@@ -1,13 +1,11 @@
-export type Movie = {
+export type MovieData = {
   Title: string;
   Year: string;
   imdbID: string;
   Poster: string;
 };
 
-export type Movies = Movie[];
-
-export type WatchedMovie = Movie & {
+export type WatchedMovieData = MovieData & {
   runtime: number;
   imdbRating: number;
   userRating: number;

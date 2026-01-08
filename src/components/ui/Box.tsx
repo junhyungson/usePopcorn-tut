@@ -1,9 +1,9 @@
 import { useState } from "react";
-import type { Movie } from "../../types/movie";
+import type { MovieData } from "../../types/movie";
 import MovieList from "./MovieList";
 
 interface ListBoxProps {
-  movies: Movie[];
+  movies: MovieData[];
 }
 
 const ListBox = ({ movies }: ListBoxProps) => {

@@ -1,10 +1,10 @@
 import Logo from "../Logo";
-import type { Movie } from "../types/movie";
+import type { MovieData } from "../types/movie";
 import Search from "./Navbar/Search";
 import SearchResults from "./Navbar/SearchResults";
 
 interface NavBarProps {
-  movies: Movie[];
+  movies: MovieData[];
 }
 
 const NavBar = ({ movies }: NavBarProps) => {

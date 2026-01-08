@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { average } from "../../helper";
-import type { WatchedMovie } from "../../types/movie";
+import type { WatchedMovieData } from "../../types/movie";
 
 interface WatchedBoxProps {
-  watched: WatchedMovie[];
+  watched: WatchedMovieData[];
 }
 
 const WatchedBox = ({ watched }: WatchedBoxProps) => {
@@ -49,7 +49,7 @@ const WatchedBox = ({ watched }: WatchedBoxProps) => {
           </div>
 
           <ul className="list">
-            {watched.map((movie: WatchedMovie) => (
+            {watched.map((movie: WatchedMovieData) => (
               <li key={movie.imdbID}>
                 <img src={movie.Poster} alt={`${movie.Title} poster`} />
                 <h3>{movie.Title}</h3>
