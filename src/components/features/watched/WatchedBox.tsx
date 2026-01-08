@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { average } from "../../../helper";
 import type { WatchedMovieData } from "../../../types/movie";
+import WatchedSummary from "./WatchedSummary";
 
 interface WatchedBoxProps {
   watched: WatchedMovieData[];
@@ -8,13 +8,6 @@ interface WatchedBoxProps {
 
 const WatchedBox = ({ watched }: WatchedBoxProps) => {
   const [isOpen2, setIsOpen2] = useState<boolean>(true);
-  const avgImdbRating: number = average(
-    watched.map((movie) => movie.imdbRating)
-  );
-  const avgUserRating: number = average(
-    watched.map((movie) => movie.userRating)
-  );
-  const avgRuntime: number = average(watched.map((movie) => movie.runtime));
 
   return (
     <div className="box">
@@ -26,27 +19,7 @@ const WatchedBox = ({ watched }: WatchedBoxProps) => {
       </button>
       {isOpen2 && (
         <>
-          <div className="summary">
-            <h2>Movies you watched</h2>
-            <div>
-              <p>
-                <span>#️⃣</span>
-                <span>{watched.length} movies</span>
-              </p>
-              <p>
-                <span>⭐️</span>
-                <span>{avgImdbRating}</span>
-              </p>
-              <p>
-                <span>🌟</span>
-                <span>{avgUserRating}</span>
-              </p>
-              <p>
-                <span>⏳</span>
-                <span>{avgRuntime} min</span>
-              </p>
-            </div>
-          </div>
+          <WatchedSummary watched={watched} />
 
           <ul className="list">
             {watched.map((movie: WatchedMovieData) => (
