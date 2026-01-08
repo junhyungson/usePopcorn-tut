@@ -1,31 +1,18 @@
-import React, { useState } from "react";
+import Logo from "../Logo";
 import type { Movie } from "../types/movie";
+import Search from "./Navbar/Search";
+import SearchResults from "./Navbar/SearchResults";
 
 interface NavBarProps {
   movies: Movie[];
 }
 
 const NavBar = ({ movies }: NavBarProps) => {
-  const [query, setQuery] = useState("");
-
   return (
     <nav className="nav-bar">
-      <div className="logo">
-        <span role="img">🍿</span>
-        <h1>usePopcorn</h1>
-      </div>
-      <input
-        className="search"
-        type="text"
-        placeholder="Search movies..."
-        value={query}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setQuery(e.target.value)
-        }
-      />
-      <p className="num-results">
-        Found <strong>{movies.length}</strong> results
-      </p>
+      <Logo />
+      <Search />
+      <SearchResults movies={movies} />
     </nav>
   );
 };
