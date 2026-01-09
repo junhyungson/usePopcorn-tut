@@ -1,6 +1,11 @@
 import { useState } from "react";
 import "./App.css";
-import { NavBar } from "./components/features/navigation";
+import { Logo } from "./components";
+import {
+  NavBar,
+  Search,
+  SearchResults,
+} from "./components/features/navigation";
 import { Main } from "./components/layout";
 import { tempMovieData } from "./tempMoviedata";
 import type { MovieData } from "./types/movie";
@@ -10,7 +15,11 @@ export default function App() {
 
   return (
     <>
-      <NavBar movies={movies} />
+      <NavBar>
+        <Logo />
+        <Search />
+        <SearchResults movies={movies} />
+      </NavBar>
       <Main movies={movies} />
     </>
   );

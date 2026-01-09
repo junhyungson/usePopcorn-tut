@@ -1,20 +1,9 @@
-import type { MovieData } from "../../../types/movie";
-import { Logo } from "../../common";
-import Search from "./Search";
-import SearchResults from "./SearchResults";
-
 interface NavBarProps {
-  movies: MovieData[];
+  children: React.ReactNode;
 }
 
-const NavBar = ({ movies }: NavBarProps) => {
-  return (
-    <nav className="nav-bar">
-      <Logo />
-      <Search />
-      <SearchResults movies={movies} />
-    </nav>
-  );
+const NavBar = ({ children }: NavBarProps) => {
+  return <nav className="nav-bar">{children}</nav>;
 };
 
 export default NavBar;
