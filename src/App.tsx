@@ -1,18 +1,19 @@
 import { useState } from "react";
 import "./App.css";
-import { Logo } from "./components";
+import { Container, Logo, MovieList, WatchedBox } from "./components";
 import {
   NavBar,
   Search,
   SearchResults,
 } from "./components/features/navigation";
 import { Main } from "./components/layout";
-import { tempMovieData } from "./tempMoviedata";
-import type { MovieData } from "./types/movie";
+import { tempMovieData, tempWatchedData } from "./tempMoviedata";
+import type { MovieData, WatchedMovieData } from "./types/movie";
 
 export default function App() {
   const [movies, _setMovies] = useState<MovieData[]>(tempMovieData);
 
+  const [watched, _setWatched] = useState<WatchedMovieData[]>(tempWatchedData);
   return (
     <>
       <NavBar>
@@ -20,7 +21,12 @@ export default function App() {
         <Search />
         <SearchResults movies={movies} />
       </NavBar>
-      <Main movies={movies} />
+      <Main>
+        <Container>
+          <MovieList movies={movies} />
+        </Container>
+        <WatchedBox watched={watched} />
+      </Main>
     </>
   );
 }

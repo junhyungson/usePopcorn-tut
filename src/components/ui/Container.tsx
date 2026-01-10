@@ -1,12 +1,11 @@
 import { useState } from "react";
-import type { MovieData } from "../../types/movie";
-import { MovieList } from "../features/movies";
 
 interface ContainerProps {
-  movies: MovieData[];
+  // movies: MovieData[];
+  children: React.ReactNode;
 }
 
-const Container = ({ movies }: ContainerProps) => {
+const Container = ({ children }: ContainerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
 
   return (
@@ -17,7 +16,7 @@ const Container = ({ movies }: ContainerProps) => {
       >
         {isOpen ? "–" : "+"}
       </button>
-      {isOpen && <MovieList movies={movies} />}
+      {isOpen && children}
     </div>
   );
 };
