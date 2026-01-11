@@ -1,6 +1,12 @@
 import { useState } from "react";
 import "./App.css";
-import { Container, Logo, MovieList, WatchedBox } from "./components";
+import {
+  Container,
+  Logo,
+  MovieList,
+  WatchedMoviesList,
+  WatchedSummary,
+} from "./components";
 import {
   NavBar,
   Search,
@@ -25,7 +31,10 @@ export default function App() {
         <Container>
           <MovieList movies={movies} />
         </Container>
-        <WatchedBox watched={watched} />
+        <Container>
+          <WatchedSummary watched={watched} />
+          <WatchedMoviesList watched={watched} />
+        </Container>
       </Main>
     </>
   );
