@@ -15,16 +15,17 @@ export function useMovies(query: string) {
       return;
     }
 
-    async function getMovies() {
+    // Debounce the API call
+    const timeoutId = setTimeout(async () => {
       try {
         setIsLoading(true);
         setError(null);
 
         const fetchedMovies = await fetchMovie(query);
-        
+
         console.log("Fetching movies for:", query);
         console.log("Results:", fetchedMovies);
-        
+
         setMovies(fetchedMovies);
       } catch (error) {
         console.error("Error fetching movies:", error);
@@ -32,9 +33,10 @@ export function useMovies(query: string) {
       } finally {
         setIsLoading(false);
       }
-    }
+    }, 500); // Wait 500ms after user stops typing
 
-    getMovies();
+    // Cleanup function to cancel the timeout if query changes
+    return () => clearTimeout(timeoutId);
   }, [query]);
 
   return { movies, isLoading, error };
