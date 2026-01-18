@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import {
   Container,
@@ -13,46 +13,22 @@ import {
   SearchResults,
 } from "./components/features/navigation";
 import { Main } from "./components/layout";
-import fetchMovie from "./fetchMovie";
+import { useMovies } from "./hooks/useMovies";
 import { tempWatchedData } from "./tempMoviedata";
-import type { MovieData, WatchedMovieData } from "./types/movie";
+import type { WatchedMovieData } from "./types/movie";
 
 export default function App() {
-  const [movies, setMovies] = useState<MovieData[]>([]);
   const [watched, setWatched] = useState<WatchedMovieData[]>(tempWatchedData);
+  const [query, setQuery] = useState("");
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    async function getMovies() {
-      try {
-        setIsLoading(true);
-        setError(null);
-
-        const fetchedMovies = await fetchMovie("inception");
-
-        console.log("START INSIDE USEEFFECT");
-        console.log("fetching movies", fetchedMovies);
-        console.log("END INSIDE USEEFFECT");
-
-        setMovies(fetchedMovies);
-      } catch (error) {
-        console.error("Error fetching movies:", error);
-        setError(error instanceof Error ? error.message : String(error));
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    getMovies();
-  }, []);
+  // Custom hook handles all movie fetching logic
+  const { movies, isLoading, error } = useMovies(query);
 
   return (
     <>
       <NavBar>
         <Logo />
-        <Search />
+        <Search query={query} setQuery={setQuery} />
         <SearchResults movies={movies} />
       </NavBar>
       <Main>
