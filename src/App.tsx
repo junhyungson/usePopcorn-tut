@@ -25,8 +25,9 @@ export default function App() {
     async function getMovies() {
       try {
         const fetchedMovies = await fetchMovie("inception");
-        console.log("inside getmovies");
+        console.log("START INSIDE USEEFFECT");
         console.log("fetching movies", fetchedMovies);
+        console.log("END INSIDE USEEFFECT");
         setMovies(fetchedMovies);
       } catch (error) {
         console.error("Error fetching movies:", error);
