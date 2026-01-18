@@ -14,23 +14,34 @@ import {
 } from "./components/features/navigation";
 import { Main } from "./components/layout";
 import fetchMovie from "./fetchMovie";
-import { tempMovieData, tempWatchedData } from "./tempMoviedata";
+import { tempWatchedData } from "./tempMoviedata";
 import type { MovieData, WatchedMovieData } from "./types/movie";
 
 export default function App() {
-  const [movies, setMovies] = useState<MovieData[]>(tempMovieData);
+  const [movies, setMovies] = useState<MovieData[]>([]);
   const [watched, setWatched] = useState<WatchedMovieData[]>(tempWatchedData);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function getMovies() {
       try {
+        setIsLoading(true);
+        setError(null);
+
         const fetchedMovies = await fetchMovie("inception");
+
         console.log("START INSIDE USEEFFECT");
         console.log("fetching movies", fetchedMovies);
         console.log("END INSIDE USEEFFECT");
+
         setMovies(fetchedMovies);
       } catch (error) {
         console.error("Error fetching movies:", error);
+        setError(error instanceof Error ? error.message : String(error));
+      } finally {
+        setIsLoading(false);
       }
     }
 
@@ -46,7 +57,9 @@ export default function App() {
       </NavBar>
       <Main>
         <Container>
-          <MovieList movies={movies} />
+          {isLoading && <p>Loading...</p>}
+          {error && <p style={{ color: "red" }}>Error: {error}</p>}
+          {!isLoading && !error && <MovieList movies={movies} />}
         </Container>
         <Container>
           <WatchedSummary watched={watched} />
