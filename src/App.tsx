@@ -22,13 +22,17 @@ export default function App() {
   const [query, setQuery] = useState("");
 
   // More specific and feature-rich hook
-  const { movies, isLoading, error, refetch } = useMovieSearch(query);
+  const { movies, isLoading, error, searchImmediately } = useMovieSearch(query);
 
   return (
     <>
       <NavBar>
         <Logo />
-        <Search query={query} setQuery={setQuery} />
+        <Search
+          query={query}
+          setQuery={setQuery}
+          onEnterSearch={searchImmediately}
+        />
         <SearchResults movies={movies} />
       </NavBar>
       <Main>

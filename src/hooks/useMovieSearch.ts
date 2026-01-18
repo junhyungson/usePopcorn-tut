@@ -1,17 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
-import { MovieService } from "../services/movieService";
+import fetchMovie from "../fetchMovie";
 import type { MovieData } from "../types/movie";
-import { useDebounce } from "./useDebounce";
 
 export function useMovieSearch(query: string) {
   const [movies, setMovies] = useState<MovieData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const debouncedQuery = useDebounce(query, 500);
-
   const searchMovies = useCallback(async (searchQuery: string) => {
-    if (!MovieService.isValidQuery(searchQuery)) {
+    if (searchQuery.length < 3) {
       setMovies([]);
       setError(null);
       return;
@@ -21,8 +18,10 @@ export function useMovieSearch(query: string) {
       setIsLoading(true);
       setError(null);
 
-      const results = await MovieService.searchMovies(searchQuery);
-      setMovies(results);
+      const fetchedMovies = await fetchMovie(searchQuery);
+      console.log("Fetching movies for:", searchQuery);
+      console.log("Results:", fetchedMovies);
+      setMovies(fetchedMovies);
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
       setMovies([]);
@@ -31,14 +30,33 @@ export function useMovieSearch(query: string) {
     }
   }, []);
 
+  // Debounced search on query change
   useEffect(() => {
-    searchMovies(debouncedQuery);
-  }, [debouncedQuery, searchMovies]);
+    if (query.length < 3) {
+      setMovies([]);
+      setError(null);
+      return;
+    }
+
+    // Debounce the API call
+    const timeoutId = setTimeout(() => {
+      searchMovies(query);
+    }, 500); // Wait 500ms after user stops typing
+
+    // Cleanup function to cancel the timeout if query changes
+    return () => clearTimeout(timeoutId);
+  }, [query, searchMovies]);
+
+  // Function to immediately search (for Enter key)
+  const searchImmediately = useCallback(() => {
+    searchMovies(query);
+  }, [query, searchMovies]);
 
   return {
     movies,
     isLoading,
     error,
-    refetch: () => searchMovies(debouncedQuery),
+    searchImmediately,
+    refetch: () => searchMovies(query),
   };
 }
